@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIDE — Explainable AI Platform for Sri Lankan Marine Ecosystems</title>
+  <meta name="description" content="Explainable AI Platform for Marine Ecosystem Forecasting — Sri Lanka (NARA / SL Navy / Ocean University)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ═══════════════════════════════════════
+       SIDEBAR
+       ═══════════════════════════════════════ -->
+  <aside class="app-sidebar">
+
+    <!-- Brand -->
+    <div class="sidebar-brand">
+      <div class="brand-logo">
+        <i data-lucide="waves" style="color:#fff;width:22px;height:22px;"></i>
+      </div>
+      <div>
+        <div class="brand-title">TIDE</div>
+        <div class="brand-tagline">Sri Lanka Marine AI</div>
+      </div>
+    </div>
+
+    <!-- Multi-Agency Telemetry Sources -->
+    <div class="agency-block">
+      <div class="agency-block-label">Integrated Data Sources</div>
+      <div class="agency-pill" style="background:rgba(6,182,212,0.14);color:#06b6d4;border:1px solid rgba(6,182,212,0.3);">
+        <span>NARA Aquatic Agency</span>
+        <i data-lucide="check-circle" style="width:12px;"></i>
+      </div>
+      <div class="agency-pill" style="background:rgba(59,130,246,0.14);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);">
+        <span>SL Navy Hydrographic</span>
+        <i data-lucide="check-circle" style="width:12px;"></i>
+      </div>
+      <div class="agency-pill" style="background:rgba(139,92,246,0.14);color:#8b5cf6;border:1px solid rgba(139,92,246,0.3);">
+        <span>Ocean University (OCU)</span>
+        <i data-lucide="check-circle" style="width:12px;"></i>
+      </div>
+    </div>
+
+    <!-- Nav Items with Meaningful Domain Names (No C1/C2/C3/C4) -->
+    <div class="nav-label">Platform Modules</div>
+    <ul class="nav-list">
+
+      <li>
+        <button class="nav-btn active" data-comp="c1" id="navBtn_c1">
+          <div class="nav-btn-row">
+            <i data-lucide="gauge" style="color:var(--accent-cyan);width:16px;flex-shrink:0;"></i>
+            <span>Water Quality &amp; MESI</span>
+            <span class="nav-badge" style="background:rgba(6,182,212,0.2);color:var(--accent-cyan);">Live</span>
+          </div>
+          <div class="nav-btn-sub">Multi-Task Forecasting &amp; Stress Index</div>
+        </button>
+      </li>
+
+      <li>
+        <button class="nav-btn" data-comp="c2" id="navBtn_c2">
+          <div class="nav-btn-row">
+            <i data-lucide="git-fork" style="color:var(--accent-purple);width:16px;flex-shrink:0;"></i>
+            <span>Causal Action Engine</span>
+            <span class="nav-badge" style="background:rgba(139,92,246,0.2);color:var(--accent-purple);">Causal AI</span>
+          </div>
+          <div class="nav-btn-sub">Causal Drivers &amp; DiCE Prescriptions</div>
+        </button>
+      </li>
+
+      <li>
+        <button class="nav-btn" data-comp="c3" id="navBtn_c3">
+          <div class="nav-btn-row">
+            <i data-lucide="thermometer-sun" style="color:var(--status-critical);width:16px;flex-shrink:0;"></i>
+            <span>Bleaching Risk Forecaster</span>
+            <span class="nav-badge" style="background:rgba(244,63,94,0.2);color:var(--status-critical);">Planned</span>
+          </div>
+          <div class="nav-btn-sub">30–90 Day Calibrated Bleaching Warnings</div>
+        </button>
+      </li>
+
+      <li>
+        <button class="nav-btn" data-comp="c4" id="navBtn_c4">
+          <div class="nav-btn-row">
+            <i data-lucide="activity" style="color:var(--status-low);width:16px;flex-shrink:0;"></i>
+            <span>Thermal Adaptation Tracker</span>
+            <span class="nav-badge" style="background:rgba(16,185,129,0.2);color:var(--status-low);">Planned</span>
+          </div>
+          <div class="nav-btn-sub">Bleaching Threshold Drift &amp; Uncertainty</div>
+        </button>
+      </li>
+
+    </ul>
+
+    <!-- Quick Ingestion Guide Link in Sidebar -->
+    <div style="margin-top: 18px; padding: 12px; background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.2); border-radius: 9px;">
+      <div style="font-size: 0.72rem; font-weight: 700; color: var(--accent-cyan); display: flex; align-items: center; gap: 6px;">
+        <i data-lucide="database" style="width: 14px;"></i> Data Connection
+      </div>
+      <div style="font-size: 0.68rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+        Connect telemetry from NARA, Navy, or OCU sensor stations.
+      </div>
+      <button id="sidebarDataBtn" class="glass-btn" style="width: 100%; margin-top: 8px; font-size: 0.72rem; padding: 5px 8px; justify-content: center;">
+        <i data-lucide="upload-cloud" style="width: 13px;"></i> Ingest Data
+      </button>
+    </div>
+
+    <div class="sidebar-footer">Platform v3.2 &nbsp;•&nbsp; TIDE Sri Lanka Marine AI</div>
+
+  </aside>
+
+  <!-- ═══════════════════════════════════════
+       CONTENT AREA
+       ═══════════════════════════════════════ -->
+  <div class="content-wrapper">
+
+    <!-- Top Controls Bar -->
+    <header class="app-header">
+      <div class="header-inner">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div class="selector-box">
+            <i data-lucide="map-pin" style="color:var(--accent-cyan);width:15px;flex-shrink:0;"></i>
+            <select id="siteSelect">
+              <option value="colombo_port">Colombo Port &amp; Kelani Estuary [NARA/Navy]</option>
+              <option value="negombo_lagoon">Negombo Lagoon [Ocean Univ/NARA]</option>
+              <option value="nilwella_bay">Nilwella Fishery Bay [SL Navy]</option>
+              <option value="hikkaduwa_reef">Hikkaduwa Marine Sanctuary [NARA/OCU]</option>
+              <option value="pigeon_island">Pigeon Island National Park [Ocean Univ]</option>
+              <option value="gulf_of_mannar">Gulf of Mannar &amp; Palk Bay [SL Navy]</option>
+            </select>
+          </div>
+          <div class="selector-box">
+            <i data-lucide="cloud-rain" style="color:var(--accent-teal);width:15px;flex-shrink:0;"></i>
+            <select id="monsoonSelect">
+              <option value="sw_monsoon">Southwest Monsoon (May – Sep)</option>
+              <option value="ne_monsoon">Northeast Monsoon (Dec – Feb)</option>
+              <option value="inter_monsoon">Inter-Monsoon (Calm / Peak Heat)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <button id="ingestDataBtn" class="glass-btn" style="background:rgba(139,92,246,0.18);border-color:var(--accent-purple);color:#fff;">
+            <i data-lucide="upload-cloud"></i> Ingest Data (CSV/API)
+          </button>
+          <div class="status-pill" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:var(--status-low);">
+            <span class="status-dot" style="background:var(--status-low);"></span>
+            Forecasting Engine Active
+          </div>
+          <button id="viewFormulaBtn" class="glass-btn">
+            <i data-lucide="calculator"></i> MESI Logic
+          </button>
+          <button id="exportReportBtn" class="glass-btn" style="background:rgba(6,182,212,0.2);border-color:var(--accent-cyan);">
+            <i data-lucide="file-text"></i> Export Brief
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Body -->
+    <main class="main-content">
+
+      <!-- Site Info Banner -->
+      <div class="info-bar">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <i data-lucide="compass" style="color:var(--accent-cyan);flex-shrink:0;"></i>
+          <span id="siteBannerText" style="color:var(--text-secondary);">Loading...</span>
+        </div>
+        <div id="whatIfBadge" style="display:none;align-items:center;gap:5px;font-size:0.72rem;padding:3px 9px;background:rgba(245,158,11,0.18);border:1px solid var(--status-moderate);color:var(--status-moderate);border-radius:16px;font-weight:600;">
+          <i data-lucide="sliders" style="width:13px;"></i> What-If Active
+        </div>
+      </div>
+
+      <!-- ═══════════ VIEW 1: Water Quality & Stress Forecasting ═══════════ -->
+      <div class="view active" id="view_c1">
+
+        <!-- Dashboard: MESI Gauge + Alert Center -->
+        <div class="dashboard-grid">
+
+          <!-- MESI Gauge -->
+          <div class="panel mesi-card">
+            <div style="width:100%;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--text-secondary);letter-spacing:1px;">Ecosystem Stress Index</span>
+              <span style="font-size:0.65rem;background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:4px;color:var(--accent-cyan);">0 – 100</span>
+            </div>
+            <div class="gauge-wrap">
+              <canvas id="mesiCanvas" width="210" height="210" class="gauge-canvas"></canvas>
+              <div class="gauge-center">
+                <span id="mesiVal" class="mesi-score-val">--</span>
+                <span class="mesi-score-lbl">MESI Score</span>
+              </div>
+            </div>
+            <div id="mesiPill" class="mesi-pill">Calculating...</div>
+            <p style="font-size:0.72rem;color:var(--text-muted);margin-top:10px;max-width:260px;text-align:center;">
+              Composite of 6 forecasted water parameters using NARA / SL Navy / OCU calibrated ecological weights.
+            </p>
+          </div>
+
+          <!-- 72-Hour Early Warning Center -->
+          <div class="panel alerts-card">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                <h2 class="section-title">
+                  <i data-lucide="shield-alert" style="color:var(--status-critical);"></i>
+                  72-Hour Multiclass Early Warning System
+                </h2>
+                <div class="horizon-tabs">
+                  <button class="htab" data-h="24h">+24h</button>
+                  <button class="htab" data-h="48h">+48h</button>
+                  <button class="htab active" data-h="72h">+72h</button>
+                </div>
+              </div>
+              <p class="section-sub" style="margin-top:6px;">Simultaneous prediction of Hypoxia, HAB, Coral Bleaching Stress &amp; Monsoonal Dilution events.</p>
+            </div>
+            <div class="alert-list" id="alertList"></div>
+          </div>
+        </div>
+
+        <!-- 6 Parameter Cards -->
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <h3 class="section-title" style="font-size:1rem;">
+              <i data-lucide="cpu" style="color:var(--accent-cyan);"></i>
+              Multi-Task Parameter Decoders (t+72h Forecast)
+            </h3>
+            <span style="font-size:0.7rem;color:var(--text-muted);">Click a card to inspect on chart below</span>
+          </div>
+          <div class="params-grid" id="paramGrid"></div>
+        </div>
+
+        <!-- Main Forecast Chart -->
+        <div class="panel panel-pad">
+          <div class="chart-header">
+            <div>
+              <h3 class="section-title" style="font-size:1rem;">
+                <i data-lucide="line-chart" style="color:var(--accent-cyan);"></i>
+                14-Day History + 72h Forecast with Uncertainty Bands
+              </h3>
+              <p class="section-sub">±95% Confidence Intervals from Shared-Encoder homoscedastic uncertainty estimation.</p>
+            </div>
+            <button id="toggleMTBtn" class="glass-btn active">
+              <i data-lucide="layers"></i> Multi-Task Mode Active
+            </button>
+          </div>
+          <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
+        </div>
+
+        <!-- What-If Simulator -->
+        <div class="panel panel-pad">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div>
+              <h3 class="section-title" style="font-size:1rem;">
+                <i data-lucide="sliders" style="color:var(--status-moderate);"></i>
+                Interactive What-If Stress Simulator
+              </h3>
+              <p class="section-sub">Adjust forecasted parameters in real-time to test MESI sensitivity and trigger early warning thresholds.</p>
+            </div>
+            <button id="resetSimBtn" class="glass-btn"><i data-lucide="rotate-ccw"></i> Reset</button>
+          </div>
+          <div class="slider-grid">
+            <div class="slider-group">
+              <div class="slider-lbl-row"><span>Sea Surface Temp</span><span class="slider-val-text"><span id="val_sst">29.5</span> °C</span></div>
+              <input type="range" id="sl_sst" min="24" max="34" step="0.1" value="29.5">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl-row"><span>Dissolved Oxygen</span><span class="slider-val-text"><span id="val_do">4.5</span> mg/L</span></div>
+              <input type="range" id="sl_do" min="1" max="9" step="0.1" value="4.5">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl-row"><span>Salinity</span><span class="slider-val-text"><span id="val_salinity">32</span> PSU</span></div>
+              <input type="range" id="sl_salinity" min="15" max="40" step="0.5" value="32">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl-row"><span>Turbidity</span><span class="slider-val-text"><span id="val_turbidity">12</span> NTU</span></div>
+              <input type="range" id="sl_turbidity" min="1" max="50" step="0.5" value="12">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl-row"><span>pH Level</span><span class="slider-val-text"><span id="val_ph">8.0</span></span></div>
+              <input type="range" id="sl_ph" min="6.5" max="9" step="0.05" value="8.0">
+            </div>
+            <div class="slider-group">
+              <div class="slider-lbl-row"><span>Chlorophyll-a</span><span class="slider-val-text"><span id="val_chl_a">4.5</span> µg/L</span></div>
+              <input type="range" id="sl_chl_a" min="0.1" max="20" step="0.2" value="4.5">
+            </div>
+          </div>
+        </div>
+
+        <!-- Neural Architecture Inspector -->
+        <div class="panel panel-pad">
+          <h3 class="section-title" style="font-size:1rem;">
+            <i data-lucide="network" style="color:var(--accent-purple);"></i>
+            Neural Architecture Inspector — Shared-Encoder Multi-Task Framework
+          </h3>
+          <div class="arch-grid">
+            <div class="arch-step">
+              <span class="arch-badge">Phase 1</span>
+              <span class="arch-name">14-Day Telemetry Window</span>
+              <span class="arch-desc">Hourly NARA/Navy/OCU buoy readings + Sentinel-3 / MODIS satellite proxies.</span>
+              <div class="tag-row"><span class="arch-tag">6 Parameters</span><span class="arch-tag">Monsoon Vector</span></div>
+            </div>
+            <div class="arch-step" style="border-color:var(--accent-purple);background:rgba(139,92,246,0.07);">
+              <span class="arch-badge" style="color:var(--accent-purple);">Phase 2 — Core</span>
+              <span class="arch-name">Shared Temporal Encoder</span>
+              <span class="arch-desc">Bi-LSTM / Transformer → 64-Dim latent synergy space. Learns cross-parameter physical coupling.</span>
+              <div class="tag-row"><span class="arch-tag" style="color:var(--accent-purple);">Shared Latent</span><span class="arch-tag">GradNorm</span></div>
+            </div>
+            <div class="arch-step">
+              <span class="arch-badge">Phase 3</span>
+              <span class="arch-name">6 Parameter Decoders</span>
+              <span class="arch-desc">Task-specific MLP heads. Homoscedastic uncertainty loss (σᵢ) prevents gradient domination.</span>
+              <div class="tag-row"><span class="arch-tag">t+24h/48h/72h</span><span class="arch-tag">Calibrated CIs</span></div>
+            </div>
+            <div class="arch-step" style="border-color:var(--accent-cyan);background:rgba(6,182,212,0.07);">
+              <span class="arch-badge">Phase 4</span>
+              <span class="arch-name">MESI + Alert Classifier</span>
+              <span class="arch-desc">NARA ecological rules synthesize MESI 0–100. Downstream classifier outputs multiclass alerts.</span>
+              <div class="tag-row"><span class="arch-tag" style="color:var(--accent-cyan);">Macro F1</span><span class="arch-tag">MEPA Actions</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /view_c1 -->
+
+      <!-- ═══════════ VIEW 2: Causal Action Engine ═══════════ -->
+      <div class="view" id="view_c2">
+
+        <!-- Causal Graph Section -->
+        <div class="panel panel-pad">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h3 class="section-title">
+                <i data-lucide="git-fork" style="color:var(--accent-purple);"></i>
+                DoWhy Structural Causal Graph — Confounding Filter
+              </h3>
+              <p class="section-sub">Distinguishes true cause-and-effect from spurious correlations using do-calculus. Monsoon seasonality is identified and filtered as a confounding variable.</p>
+            </div>
+            <span style="font-size:0.72rem;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:var(--accent-purple);padding:4px 11px;border-radius:16px;font-weight:600;white-space:nowrap;">DoWhy SCM + do-calculus</span>
+          </div>
+
+          <div class="dag-grid">
+            <div class="dag-node" style="background:rgba(245,158,11,0.1);border:1px dashed var(--status-moderate);">
+              <span class="dag-node-type" style="color:var(--status-moderate);">⚠ Confounder (Filtered)</span>
+              <span class="dag-node-name">Monsoon Cycle</span>
+              <span class="dag-node-sub">Seasonal covariate — removed via do(X) intervention</span>
+            </div>
+            <div class="dag-node" style="background:rgba(6,182,212,0.1);border:1px solid var(--accent-cyan);">
+              <span class="dag-node-type" style="color:var(--accent-cyan);">✓ True Causal Drivers</span>
+              <span class="dag-node-name">River Runoff &amp; Industrial Effluent</span>
+              <span class="dag-node-sub">Average Treatment Effect (ATE) p &lt; 0.001</span>
+            </div>
+            <div class="dag-node" style="background:rgba(139,92,246,0.1);border:1px solid var(--accent-purple);">
+              <span class="dag-node-type" style="color:var(--accent-purple);">Mediators</span>
+              <span class="dag-node-name">DO Depletion &amp; Turbidity</span>
+              <span class="dag-node-sub">Physical pathway confirmed via structural equations</span>
+            </div>
+            <div class="dag-node" style="background:rgba(244,63,94,0.1);border:1px solid var(--status-critical);">
+              <span class="dag-node-type" style="color:var(--status-critical);">Target Outcome</span>
+              <span class="dag-node-name">MESI Ecosystem Stress</span>
+              <span class="dag-node-sub">Composite 0–100 ecological risk index</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DiCE Counterfactual Engine -->
+        <div class="panel panel-pad">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:6px;">
+            <div>
+              <h3 class="section-title">
+                <i data-lucide="target" style="color:var(--status-low);"></i>
+                DiCE Counterfactual Prescription Engine
+              </h3>
+              <p class="section-sub">Calculates the minimum exact regulatory interventions needed to bring MESI from its current risk level to a safe target (&lt;30 Low Risk).</p>
+            </div>
+            <span style="font-size:0.72rem;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:var(--status-low);padding:4px 11px;border-radius:16px;font-weight:600;white-space:nowrap;">DiCE Optimization Engine</span>
+          </div>
+
+          <div class="dice-grid">
+            <div class="dice-score-box">
+              <div style="font-size:0.72rem;color:var(--text-secondary);">Current Ecosystem Risk (MESI)</div>
+              <div class="dice-big" id="diceMesiVal">--</div>
+              <div id="diceCategoryVal" style="font-size:0.78rem;font-weight:700;color:var(--status-critical);">Calculating...</div>
+              <div class="dice-target">
+                <div style="font-size:0.7rem;color:var(--text-muted);">Safe Target Threshold</div>
+                <div style="font-size:1.15rem;font-weight:700;color:var(--status-low);">≤ 30.0 — Low Risk</div>
+              </div>
+            </div>
+            <div>
+              <h4 style="font-size:0.88rem;font-weight:700;margin-bottom:10px;">Counterfactual Prescriptions (Actionable Interventions):</h4>
+              <div class="prescription-list" id="prescriptionList">
+                <div style="color:var(--text-muted);font-size:0.82rem;">Loading counterfactual interventions...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /view_c2 -->
+
+      <!-- ═══════════ VIEW 3: Bleaching Risk Forecaster (Empty) ═══════════ -->
+      <div class="view" id="view_c3"></div>
+
+      <!-- ═══════════ VIEW 4: Thermal Adaptation Tracker (Empty) ═══════════ -->
+      <div class="view" id="view_c4"></div>
+
+    </main><!-- /main-content -->
+
+    <footer class="app-footer">
+      TIDE Platform — Integrated telemetry from <strong>NARA</strong>, <strong>Sri Lanka Navy Hydrographic Service</strong>, and <strong>Ocean University of Sri Lanka (OCU)</strong>.
+    </footer>
+
+  </div><!-- /content-wrapper -->
+</div><!-- /app-shell -->
+
+<!-- ═══════════════════════════════════════
+     DATA INGESTION / CONNECTION MODAL
+     ═══════════════════════════════════════ -->
+<div id="dataIngestModal" class="modal-overlay">
+  <div class="modal-box" style="max-width: 720px;">
+    <button id="closeIngestModalBtn" class="modal-close">&times;</button>
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(139,92,246,0.2); display: flex; align-items: center; justify-content: center;">
+        <i data-lucide="database" style="color: var(--accent-purple); width: 20px;"></i>
+      </div>
+      <div>
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: #fff;">
+          How to Insert Data into TIDE
+        </h3>
+        <p style="font-size: 0.78rem; color: var(--text-secondary);">
+          Telemetry pipeline for NARA buoys, SL Navy Hydrographic stations, and Ocean University (OCU) coastal nodes.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 Data Insertion Methods -->
+    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+      
+      <!-- Method 1: CSV Upload -->
+      <div style="background: rgba(15,23,42,0.7); border: 1px solid var(--border-glass); border-radius: 10px; padding: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-weight: 700; font-size: 0.88rem; color: var(--accent-cyan);">
+            Method 1: Direct CSV / In-Situ Data Upload
+          </span>
+          <button id="downloadSampleBtn" class="action-btn" style="font-size: 0.72rem;">
+            <i data-lucide="download" style="width: 12px;"></i> Download CSV Template
+          </button>
+        </div>
+        <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px;">
+          Upload daily or hourly coastal readings containing the 6 required oceanographic parameters.
+        </p>
+        
+        <div style="border: 2px dashed rgba(56,189,248,0.3); border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; background: rgba(6,182,212,0.03);" id="uploadDropzone">
+          <i data-lucide="file-up" style="color: var(--accent-cyan); width: 28px; height: 28px; margin-bottom: 6px;"></i>
+          <div style="font-size: 0.82rem; font-weight: 600; color: #fff;">Click to select or drag &amp; drop a CSV dataset file</div>
+          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">Supported columns: timestamp, sst, do, salinity, turbidity, ph, chl_a</div>
+          <input type="file" id="csvFileInput" accept=".csv,text/csv" style="display: none;">
+        </div>
+        <div id="uploadStatusMessage" style="display: none; font-size: 0.75rem; padding: 8px 12px; border-radius: 6px; margin-top: 8px;"></div>
+      </div>
+
+      <!-- Method 2: Codebase Data Module -->
+      <div style="background: rgba(15,23,42,0.7); border: 1px solid var(--border-glass); border-radius: 10px; padding: 14px;">
+        <span style="font-weight: 700; font-size: 0.88rem; color: var(--accent-purple);">
+          Method 2: Codebase Configuration File (<code style="color: #fff;">js/site_data.js</code>)
+        </span>
+        <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.5; margin-top: 4px;">
+          You can add new stations directly into the <code style="color: var(--accent-cyan);">SITE_DATABASE</code> object inside <code style="color: var(--accent-cyan);">js/site_data.js</code> with baseline values, coordinates, and data provider attribution:
+        </p>
+        <pre style="background: #060b14; border: 1px solid var(--border-glass); padding: 10px; border-radius: 6px; font-size: 0.72rem; color: #38bdf8; margin-top: 8px; overflow-x: auto;">
+SITE_DATABASE["mirissa_bay"] = {
+  name: "Mirissa Fishery & Whale Sanctuary",
+  dataProvider: "sl_navy", // "nara" | "sl_navy" | "ocean_univ"
+  sensorNode: "SL-NAVY-SOUTH-MIR01",
+  baseValues: { sst: 29.1, do: 4.8, salinity: 33.5, turbidity: 9.0, ph: 8.0, chl_a: 3.2 }
+};</pre>
+      </div>
+
+      <!-- Method 3: REST API / Buoy Telemetry Stream -->
+      <div style="background: rgba(15,23,42,0.7); border: 1px solid var(--border-glass); border-radius: 10px; padding: 14px;">
+        <span style="font-weight: 700; font-size: 0.88rem; color: var(--status-low);">
+          Method 3: Live REST API / IoT Buoy Stream (Backend Integration)
+        </span>
+        <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.5; margin-top: 4px;">
+          For automated continuous feeds, connect your Python/FastAPI backend to fetch real-time buoy streams and push JSON telemetry directly into the frontend via WebSocket or <code style="color: var(--status-low);">fetch('/api/v1/telemetry?station=NARA-01')</code>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MESI Logic Modal -->
+<div id="formulaModal" class="modal-overlay">
+  <div class="modal-box">
+    <button id="closeModalBtn" class="modal-close">&times;</button>
+    <h3 style="font-family:var(--font-heading);font-size:1.15rem;font-weight:700;color:var(--accent-cyan);margin-bottom:10px;">Marine Ecosystem Stress Index (MESI) Formulation</h3>
+    <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:14px;">NARA-calibrated composite index (0–100) from 6 physical/chemical parameters:</p>
+    <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.3);padding:12px;border-radius:8px;font-family:monospace;font-size:0.82rem;color:#fff;margin-bottom:14px;">
+      MESI = 0.25·S_SST + 0.25·S_DO + 0.15·S_Salinity + 0.15·S_Turbidity + 0.10·S_pH + 0.10·S_Chl-a
+    </div>
+    <ul style="font-size:0.78rem;color:var(--text-secondary);display:flex;flex-direction:column;gap:5px;padding-left:18px;margin-bottom:14px;">
+      <li><strong>SST [25%]</strong>: Baseline 28.0°C. Exponential stress above 29.5°C.</li>
+      <li><strong>Dissolved Oxygen [25%]</strong>: Baseline 6.5 mg/L. Hypoxia onset below 3.5 mg/L (Critical &lt;2.0 mg/L).</li>
+      <li><strong>Salinity [15%]</strong>: Baseline 34.0 PSU. Freshwater dilution stress below 25.0 PSU.</li>
+      <li><strong>Turbidity [15%]</strong>: Baseline 5.0 NTU. Particulate stress spikes above 15 NTU.</li>
+      <li><strong>pH [10%]</strong>: Optimal 7.8–8.2. Deviation = acidification or alkalinity stress.</li>
+      <li><strong>Chlorophyll-a [10%]</strong>: Baseline 2.0 µg/L. Bloom potential above 10 µg/L.</li>
+    </ul>
+    <div style="font-size:0.75rem;color:var(--text-muted);border-top:1px solid var(--border-glass);padding-top:10px;">
+      Categories: 0–30 Low/Stable &nbsp;|&nbsp; 31–55 Moderate Stress &nbsp;|&nbsp; 56–75 High Stress &nbsp;|&nbsp; 76–100 Critical Hazard
+    </div>
+  </div>
+</div>
+
+<!-- JS Modules -->
+<script src="js/site_data.js"></script>
+<script src="js/esi_calculator.js"></script>
+<script src="js/chart_builder.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
