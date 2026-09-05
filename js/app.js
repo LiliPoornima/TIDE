@@ -336,6 +336,9 @@ function refreshAll() {
     // Render the specialized bleaching component view
     if (typeof renderComponent03View === 'function') renderComponent03View('view_c3', reefKey);
   }
+  else if (S.comp === 'c4') {
+    if (typeof renderComponent04View === 'function') renderComponent04View('view_c4', S.site);
+  }
 
   lucide.createIcons();
 }
