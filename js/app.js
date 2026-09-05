@@ -313,6 +313,12 @@ function refreshAll() {
 
   if (S.comp === 'c1') renderC1(params, li);
   else if (S.comp === 'c2') renderC2(params);
+  else if (S.comp === 'c3') {
+    // Map global site selection to bleaching reef keys if available
+    const reefKey = (typeof BLEACHING_REEF_SITES !== 'undefined' && BLEACHING_REEF_SITES[S.site]) ? S.site : 'gulf_of_mannar';
+    // Render the specialized bleaching component view
+    if (typeof renderComponent03View === 'function') renderComponent03View('view_c3', reefKey);
+  }
 
   lucide.createIcons();
 }

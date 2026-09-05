@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TIDE — Explainable AI Platform for Sri Lankan Marine Ecosystems</title>
   <meta name="description" content="Explainable AI Platform for Marine Ecosystem Forecasting — Sri Lanka (NARA / SL Navy / Ocean University)">
+  <!-- Debug overlay: capture JS errors early and display on-page for easier diagnosis -->
+  <script>
+    (function(){
+      function showOverlay(msg){
+        try{
+          var s=document.createElement('style'); s.innerHTML='\n#tide-debug-overlay{position:fixed;left:12px;right:12px;bottom:12px;padding:12px;border-radius:8px;background:rgba(0,0,0,0.85);color:#fff;font-size:13px;z-index:99999;box-shadow:0 6px 18px rgba(0,0,0,0.6);max-height:40vh;overflow:auto}\n#tide-debug-overlay h4{margin:0 0 6px 0;font-size:13px;color:#ffb4b4}\n#tide-debug-overlay pre{white-space:pre-wrap;color:#fff;margin:0;font-size:12px}\n'; document.head.appendChild(s);
+          var d=document.createElement('div'); d.id='tide-debug-overlay'; d.innerHTML='<h4>JS Error — see console for details</h4><pre>'+String(msg)+'</pre>';
+          document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(d); });
+          // if body already present
+          if(document.body) document.body.appendChild(d);
+        }catch(e){ console.error('overlay failure', e); }
+      }
+
+      window.addEventListener('error', function(ev){
+        try{ var m = ev.message + '\n' + (ev.filename||'') + ':' + (ev.lineno||'') + '\n' + (ev.error && ev.error.stack? ev.error.stack : ''); showOverlay(m); }catch(e){}
+      });
+
+      window.addEventListener('unhandledrejection', function(ev){ try{ showOverlay('UnhandledRejection: '+ (ev.reason && ev.reason.stack? ev.reason.stack : String(ev.reason))); }catch(e){} });
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -520,6 +540,7 @@ SITE_DATABASE["mirissa_bay"] = {
 <script src="js/site_data.js"></script>
 <script src="js/esi_calculator.js"></script>
 <script src="js/chart_builder.js"></script>
+<script src="js/bleaching_engine.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
