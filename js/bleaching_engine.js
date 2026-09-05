@@ -18,7 +18,8 @@ const BLEACHING_REEF_SITES = {
       { feature: "Degree Heating Weeks (DHW)", importance: "+28%" },
       { feature: "Tourism & Anchor Shear", importance: "+15%" },
       { feature: "Salinity Dilution", importance: "+12%" }
-    ]
+    ],
+    explanation: "The forecast is elevated because ocean heat accumulation and warm-water anomalies are pushing the reef past its bleaching threshold. Elevated SST and DHW dominate the model’s decision, while local stressors add additional pressure but are secondary drivers."
   },
   gulf_of_mannar: {
     name: "Gulf of Mannar & Palk Bay Reefs",
@@ -34,7 +35,8 @@ const BLEACHING_REEF_SITES = {
       { feature: "SST Peak Anomaly", importance: "+30%" },
       { feature: "Shallow Solar Penetration", importance: "+12%" },
       { feature: "Turbidity Shielding", importance: "-6%" }
-    ]
+    ],
+    explanation: "This reef is the most at risk because sustained thermal accumulation and shallow water exposure are intensifying stress. The model attributes most of the output to prolonged heat and peak temperature anomalies, which is why the risk rises sharply over the next 30–90 days."
   },
   pigeon_island: {
     name: "Pigeon Island National Park",
@@ -50,7 +52,8 @@ const BLEACHING_REEF_SITES = {
       { feature: "SST Regional Anomaly", importance: "+34%" },
       { feature: "DHW Accumulation", importance: "+20%" },
       { feature: "Water Depth Buffer", importance: "-8%" }
-    ]
+    ],
+    explanation: "The output remains comparatively lower because cooling from current upwelling offsets thermal stress. Although SST and DHW still contribute, the model shows that the reef’s depth and local circulation reduce heat burden enough to keep bleaching risk below the high-risk threshold."
   }
 };
 
@@ -166,6 +169,18 @@ function renderComponent03View(containerId, activeSiteId = 'hikkaduwa_reef') {
           </div>
         </div>
 
+      </div>
+
+      <div class="glass-panel" style="padding: 20px;">
+        <h4 style="font-size: 1rem; font-weight: 700; color: #ffffff; margin: 0 0 10px 0;">
+          Why the model gives this output
+        </h4>
+        <p style="margin: 0; color: var(--text-secondary); font-size: 0.82rem; line-height: 1.7;">
+          ${reef.explanation}
+        </p>
+        <div style="margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--accent-cyan); background: rgba(6, 182, 212, 0.05); border-radius: 8px; color: var(--text-primary); font-size: 0.8rem;">
+          <strong>SHAP interpretation:</strong> the model is most strongly driven by the features that increase coral stress and thermal accumulation, while cooling or protective conditions reduce the risk estimate when present.
+        </div>
       </div>
       
       <!-- Calibration & SHAP Charts -->
