@@ -311,8 +311,15 @@ function refreshAll() {
 
   updateSiteBanner();
 
-  if (S.comp === 'c1') renderC1(params, li);
-  else if (S.comp === 'c2') renderC2(params);
+  if (S.comp === 'c1') {
+    renderC1(params, li);
+  } else if (S.comp === 'c2') {
+    renderC2(params);
+  } else if (S.comp === 'c3') {
+    if (typeof renderComponent03View === 'function') renderComponent03View('view_c3', S.site);
+  } else if (S.comp === 'c4') {
+    if (typeof renderComponent04View === 'function') renderComponent04View('view_c4', S.site);
+  }
 
   lucide.createIcons();
 }
