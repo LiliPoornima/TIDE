@@ -349,75 +349,72 @@
 
       <!-- ═══════════ VIEW 2: Causal Action Engine ═══════════ -->
       <div class="view" id="view_c2">
-
-        <!-- Causal Graph Section -->
-        <div class="panel panel-pad">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
-            <div>
-              <h3 class="section-title">
-                <i data-lucide="git-fork" style="color:var(--accent-purple);"></i>
-                DoWhy Structural Causal Graph — Confounding Filter
-              </h3>
-              <p class="section-sub">Distinguishes true cause-and-effect from spurious correlations using do-calculus. Monsoon seasonality is identified and filtered as a confounding variable.</p>
-            </div>
-            <span style="font-size:0.72rem;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:var(--accent-purple);padding:4px 11px;border-radius:16px;font-weight:600;white-space:nowrap;">DoWhy SCM + do-calculus</span>
-          </div>
-
-          <div class="dag-grid">
-            <div class="dag-node" style="background:rgba(245,158,11,0.1);border:1px dashed var(--status-moderate);">
-              <span class="dag-node-type" style="color:var(--status-moderate);">⚠ Confounder (Filtered)</span>
-              <span class="dag-node-name">Monsoon Cycle</span>
-              <span class="dag-node-sub">Seasonal covariate — removed via do(X) intervention</span>
-            </div>
-            <div class="dag-node" style="background:rgba(6,182,212,0.1);border:1px solid var(--accent-cyan);">
-              <span class="dag-node-type" style="color:var(--accent-cyan);">✓ True Causal Drivers</span>
-              <span class="dag-node-name">River Runoff &amp; Industrial Effluent</span>
-              <span class="dag-node-sub">Average Treatment Effect (ATE) p &lt; 0.001</span>
-            </div>
-            <div class="dag-node" style="background:rgba(139,92,246,0.1);border:1px solid var(--accent-purple);">
-              <span class="dag-node-type" style="color:var(--accent-purple);">Mediators</span>
-              <span class="dag-node-name">DO Depletion &amp; Turbidity</span>
-              <span class="dag-node-sub">Physical pathway confirmed via structural equations</span>
-            </div>
-            <div class="dag-node" style="background:rgba(244,63,94,0.1);border:1px solid var(--status-critical);">
-              <span class="dag-node-type" style="color:var(--status-critical);">Target Outcome</span>
-              <span class="dag-node-name">MESI Ecosystem Stress</span>
-              <span class="dag-node-sub">Composite 0–100 ecological risk index</span>
-            </div>
-          </div>
+        <div class="c2-hero">
+          <div><span class="c2-kicker">Marine Ecosystem AI Platform</span><h2>Component 02 – Environmental Driver Analysis</h2><p>Explainable causal analysis of environmental drivers in Sri Lankan coastal waters.</p></div>
+          <span class="c2-demo-badge">Illustrative Results</span>
         </div>
 
-        <!-- DiCE Counterfactual Engine -->
-        <div class="panel panel-pad">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:6px;">
-            <div>
-              <h3 class="section-title">
-                <i data-lucide="target" style="color:var(--status-low);"></i>
-                DiCE Counterfactual Prescription Engine
-              </h3>
-              <p class="section-sub">Calculates the minimum exact regulatory interventions needed to bring MESI from its current risk level to a safe target (&lt;30 Low Risk).</p>
-            </div>
-            <span style="font-size:0.72rem;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:var(--status-low);padding:4px 11px;border-radius:16px;font-weight:600;white-space:nowrap;">DiCE Optimization Engine</span>
-          </div>
-
-          <div class="dice-grid">
-            <div class="dice-score-box">
-              <div style="font-size:0.72rem;color:var(--text-secondary);">Current Ecosystem Risk (MESI)</div>
-              <div class="dice-big" id="diceMesiVal">--</div>
-              <div id="diceCategoryVal" style="font-size:0.78rem;font-weight:700;color:var(--status-critical);">Calculating...</div>
-              <div class="dice-target">
-                <div style="font-size:0.7rem;color:var(--text-muted);">Safe Target Threshold</div>
-                <div style="font-size:1.15rem;font-weight:700;color:var(--status-low);">≤ 30.0 — Low Risk</div>
-              </div>
-            </div>
-            <div>
-              <h4 style="font-size:0.88rem;font-weight:700;margin-bottom:10px;">Counterfactual Prescriptions (Actionable Interventions):</h4>
-              <div class="prescription-list" id="prescriptionList">
-                <div style="color:var(--text-muted);font-size:0.82rem;">Loading counterfactual interventions...</div>
-              </div>
-            </div>
-          </div>
+        <div class="c2-process" aria-label="Component 02 research process">
+          <span>C01 Concern</span><i data-lucide="arrow-right"></i><span>Outcome</span><i data-lucide="arrow-right"></i><span>Drivers</span><i data-lucide="arrow-right"></i><span>ML + SHAP</span><i data-lucide="arrow-right"></i><span>Causal + What-if</span>
         </div>
+
+        <div class="c2-overview-grid">
+          <section class="panel panel-pad c2-input-card">
+            <div class="c2-card-label"><i data-lucide="link-2"></i> Input received from Component 01</div>
+            <h3>C01 Outcome</h3>
+            <div class="c2-risk-row"><span>MESI Risk Level</span><strong>HIGH</strong></div>
+            <div class="c2-concern"><span>Key Water-Quality Concern</span><b>Dissolved Oxygen (DO)</b><strong>5.1 <small>mg/L</small></strong></div>
+          </section>
+          <section class="panel panel-pad">
+            <h3 class="section-title"><i data-lucide="circle-check-big" style="color:var(--accent-teal);"></i> Selected Outcome: Dissolved Oxygen (DO)</h3>
+            <div class="c2-checklist"><span>Identified as a C01 water-quality concern</span><span>Ecologically important</span><span>Supported by literature</span><span>Data available for analysis</span><span>Suitable for causal analysis</span></div>
+          </section>
+        </div>
+
+        <section class="panel panel-pad">
+          <div class="c2-section-head"><div><h3 class="section-title"><i data-lucide="waves" style="color:var(--accent-cyan);"></i> Candidate Environmental Drivers</h3><p class="section-sub">Select the environmental variables assessed for their relationship with DO.</p></div><span class="c2-demo-badge">Illustrative Results</span></div>
+          <div class="c2-driver-grid">
+            <button class="c2-driver selected">Sea Surface Temperature</button><button class="c2-driver selected">Salinity</button><button class="c2-driver selected">Rainfall</button><button class="c2-driver selected">Runoff</button><button class="c2-driver">Wind</button><button class="c2-driver">Turbidity</button><button class="c2-driver">Chlorophyll-a</button>
+          </div>
+        </section>
+
+        <div class="c2-analysis-grid">
+          <section class="panel panel-pad">
+            <h3 class="section-title"><i data-lucide="brain-circuit" style="color:var(--accent-purple);"></i> ML Driver Model</h3>
+            <div class="c2-model-flow"><span>Environmental<br>Drivers</span><i data-lucide="arrow-right"></i><strong>XGBoost</strong><i data-lucide="arrow-right"></i><span>DO</span></div>
+            <div class="c2-metrics"><div><b>0.82</b><span>R²</span></div><div><b>0.41</b><span>RMSE</span></div><div><b>0.31</b><span>MAE</span></div></div>
+            <p class="c2-caption">Predictive baseline for driver analysis</p>
+          </section>
+          <section class="panel panel-pad">
+            <h3 class="section-title"><i data-lucide="bar-chart-3" style="color:var(--accent-cyan);"></i> SHAP – Predictive Driver Importance</h3>
+            <div class="c2-shap-chart">
+              <div><span>SST</span><b style="width:32%"></b><em>32%</em></div><div><span>Salinity</span><b style="width:24%"></b><em>24%</em></div><div><span>Runoff</span><b style="width:18%"></b><em>18%</em></div><div><span>Rainfall</span><b style="width:13%"></b><em>13%</em></div><div><span>Wind</span><b style="width:9%"></b><em>9%</em></div><div><span>Others</span><b style="width:4%"></b><em>4%</em></div>
+            </div>
+            <p class="c2-warning"><i data-lucide="triangle-alert"></i> SHAP importance indicates model influence, not causation.</p>
+          </section>
+        </div>
+
+        <div class="c2-causal-grid">
+          <section class="panel panel-pad">
+            <h3 class="section-title"><i data-lucide="git-fork" style="color:var(--accent-purple);"></i> Causal Analysis</h3>
+            <div class="c2-dag"><div><span>SST</span><i data-lucide="arrow-right"></i><strong>DO</strong></div><div><span>Rainfall</span><i data-lucide="arrow-right"></i><span>Runoff</span><i data-lucide="arrow-right"></i><strong>DO</strong></div><div><span>Salinity</span><i data-lucide="arrow-right"></i><strong>DO</strong></div></div>
+            <p class="c2-caption">Results depend on the specified causal assumptions.</p>
+          </section>
+          <section class="panel panel-pad c2-result-card"><span>Illustrative causal result</span><h4>Driver: SST</h4><div><label>Estimated Effect</label><b class="c2-negative">Negative</b></div><div><label>Causal Evidence</label><b>Strong</b></div><p><i data-lucide="badge-check"></i> Potential causal influence</p></section>
+        </div>
+
+        <section class="panel panel-pad">
+          <div class="c2-section-head"><div><h3 class="section-title"><i data-lucide="scale" style="color:var(--accent-teal);"></i> Predictive vs Causal Comparison</h3><p class="section-sub">Predictive importance and causal evidence can differ.</p></div></div>
+          <div class="c2-table-wrap"><table class="c2-table"><thead><tr><th>Driver</th><th>SHAP Importance</th><th>Causal Evidence</th></tr></thead><tbody><tr><td>SST</td><td><span class="c2-tag high">High</span></td><td><span class="c2-tag strong">Strong</span></td></tr><tr><td>Runoff</td><td><span class="c2-tag high">High</span></td><td><span class="c2-tag moderate">Moderate</span></td></tr><tr><td>Salinity</td><td><span class="c2-tag medium">Medium</span></td><td><span class="c2-tag weak">Weak</span></td></tr><tr><td>Wind</td><td><span class="c2-tag low">Low</span></td><td><span class="c2-tag unsupported">Not supported</span></td></tr></tbody></table></div>
+        </section>
+
+        <section class="panel panel-pad c2-whatif">
+          <div class="c2-section-head"><div><h3 class="section-title"><i data-lucide="flask-conical" style="color:var(--accent-teal);"></i> What-if Analysis</h3><p class="section-sub">Scenario: <strong>Increase SST by 1°C</strong></p></div><span class="c2-demo-badge">Illustrative Results</span></div>
+          <div class="c2-scenario-grid"><div><span>Baseline</span><b>SST = 30°C</b><b>DO = 5.1 mg/L</b></div><i data-lucide="arrow-right"></i><div class="c2-scenario-result"><span>What-if</span><b>SST = 31°C</b><b>Estimated DO = 4.8 mg/L</b></div><div class="c2-change"><span>Estimated Change</span><strong>-0.3 mg/L</strong></div></div>
+          <button class="glass-btn c2-run-btn" id="runC2WhatIf"><i data-lucide="play"></i> Run What-if Scenario</button><span class="c2-run-status" id="c2RunStatus" aria-live="polite"></span>
+        </section>
+
+        <section class="panel panel-pad c2-insight"><div class="c2-insight-icon"><i data-lucide="lightbulb"></i></div><div><span>Potential Management Insight</span><h3>Higher SST conditions may increase DO stress.</h3><p>Supports evidence-based coastal water-quality monitoring.</p></div></section>
 
       </div><!-- /view_c2 -->
 
