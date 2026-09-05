@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupNav();
   setupHeaderControls();
   setupSliders();
+  setupC2Prototype();
   setupModals();
   setupDataIngestion();
   refreshAll();
@@ -42,6 +43,22 @@ function setupNav() {
       refreshAll();
     });
   });
+}
+
+// ── Component 02 prototype interactions ──
+function setupC2Prototype() {
+  document.querySelectorAll('.c2-driver').forEach(driver => {
+    driver.addEventListener('click', () => driver.classList.toggle('selected'));
+  });
+
+  const runBtn = document.getElementById('runC2WhatIf');
+  const status = document.getElementById('c2RunStatus');
+  if (runBtn && status) {
+    runBtn.addEventListener('click', () => {
+      status.textContent = 'Scenario calculated: estimated DO change is −0.3 mg/L.';
+      runBtn.classList.add('active');
+    });
+  }
 }
 
 // ── Header Controls ──
